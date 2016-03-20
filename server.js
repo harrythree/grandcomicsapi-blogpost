@@ -5,10 +5,19 @@ var PORT = process.env.PORT || 8080;
 
 app.use(cors());
 
-app.get('/', function(req, res, next){
-  res.status(200).json({
-		status: 'Available',
-		uptime: Math.round(process.uptime())
+app.use('/', require('./routes'));
+
+app.use(function(req, res, next) {
+	var err = new Error('Not Found');
+	err.status = 404;
+	next(err);
+});
+
+app.use(function(err, req, res) {
+	res.status(err.status || 500);
+	res.json({
+		message: err.message,
+		error: {}
 	});
 });
 

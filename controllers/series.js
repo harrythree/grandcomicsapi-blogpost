@@ -1,7 +1,7 @@
 var Series = require('../models/Series');
 
 module.exports = {
-  get: function(req, res, next) {
+  all: function(req, res, next) {
     Series.forge()
     .query({
       limit: 10

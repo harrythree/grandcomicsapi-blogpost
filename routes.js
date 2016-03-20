@@ -1,11 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var controllers = require('./controllers');
 
-router.get('/', function(req, res, next){
-  res.status(200).json({
-		status: 'Available',
-		uptime: Math.round(process.uptime())
-	});
-});
+router.get('/', controllers.status.get);
 
 module.exports = router;

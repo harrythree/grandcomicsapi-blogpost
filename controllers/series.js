@@ -12,5 +12,18 @@ module.exports = {
       res.status(200).json(series);
     })
     .catch(next);
+  },
+
+  get: function(req, res, next) {
+    Series.forge({
+			id: req.params.id
+		})
+		.fetch({
+			withRelated: ['issues.stories.type', 'issues.brand']
+		})
+		.then(function(series) {
+			res.status(200).json(series);
+		})
+		.catch(next);
   }
 }

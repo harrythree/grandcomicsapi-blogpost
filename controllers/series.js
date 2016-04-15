@@ -15,15 +15,8 @@ module.exports = {
   },
 
   get: function(req, res, next) {
-    var seriesId = parseInt(req.params.id);
-		if (!Number.isInteger(seriesId)) {
-			var err = new Error('Series ID must be an integer.');
-			err.status = 400;
-			return next(err);
-		}
-
     Series.forge({
-			id: seriesId
+			id: req.params.id
 		})
 		.fetch({
 			withRelated: ['issues.stories.type', 'issues.brand']
